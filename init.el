@@ -1,29 +1,9 @@
 ;; Package Setup
 (setq package-archives '(("melpa" . "http://melpa.org/packages/")
                          ("gnu" . "http://elpa.gnu.org/packages/")))
-
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
-;; and `package-pinned-packages`. Most users will not need or want to do this.
-;; (add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("e6df46d5085fde0ad56a46ef69ebb388193080cc9819e2d6024c9c6e27388ba9" default))
- '(package-selected-packages
-   '(zenburn-theme ido-completing-read+ iedit lsp-ivy lsp-ui latex-preview-pane powerline zoom lsp-python-ms dap-mode which-key magit go-mode exec-path-from-shell yasnippet-snippets yasnippet lsp-mode counsel ivy flycheck company smartparens)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
 
 (when (cl-find-if-not #'package-installed-p package-selected-packages)
   (package-refresh-contents)
@@ -35,11 +15,10 @@
   (package-install 'use-package))
 (require 'use-package)
 
-;; Ensure environment variables inside Emacs look the same as in the user's shell
-(when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
-(when (daemonp)
-  (exec-path-from-shell-initialize))
+;; remove UI 
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
 
 ;; Zenburn
 (load-theme 'zenburn t)
@@ -47,10 +26,6 @@
 ;; Power Line
 (require 'powerline)
 (powerline-default-theme)
-
-;; ;; Zoom
-;; (zoom-mode)
-;; (setq zoom-size '(0.618 . 0.618))
 
 ;; Iedit
 (require 'iedit)
@@ -74,7 +49,6 @@
 
 ;; Company
 (add-hook 'after-init-hook 'global-company-mode)
-
 (setq company-idle-delay 0)
 (setq company-minimum-prefix-length 1)
 (setq company-show-numbers t)
@@ -162,3 +136,22 @@
 ;; CC Mode
 (require 'cc-mode)
 (setq c-default-style "linux")
+
+
+;; --------------------------------------------------------------------------------------
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("e6df46d5085fde0ad56a46ef69ebb388193080cc9819e2d6024c9c6e27388ba9" default))
+ '(package-selected-packages
+   '(zenburn-theme ido-completing-read+ iedit lsp-ivy lsp-ui latex-preview-pane powerline zoom lsp-python-ms dap-mode which-key magit go-mode exec-path-from-shell yasnippet-snippets yasnippet lsp-mode counsel ivy flycheck company smartparens)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
